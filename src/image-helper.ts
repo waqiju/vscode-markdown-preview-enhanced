@@ -4,6 +4,7 @@ import * as path from "path";
 import * as vscode from "vscode";
 
 import { isMarkdownFile } from "./preview-content-provider";
+import {attachTid} from "./tid-generator";
 
 /**
  * Copy ans paste image at imageFilePath to config.imageForlderPath.
@@ -19,7 +20,8 @@ export function pasteImageFile(sourceUri: any, imageFilePath: string) {
   const imageFolderPath = vscode.workspace
     .getConfiguration("markdown-preview-enhanced")
     .get<string>("imageFolderPath");
-  let imageFileName = path.basename(imageFilePath);
+  // let imageFileName = path.basename(imageFilePath);
+  let imageFileName = attachTid(path.basename(imageFilePath))
   const projectDirectoryPath = vscode.workspace.rootPath;
   let assetDirectoryPath;
   let description;
@@ -36,7 +38,8 @@ export function pasteImageFile(sourceUri: any, imageFilePath: string) {
   }
 
   const destPath = path.resolve(
-    assetDirectoryPath,
+    // path.basename(imageFilePath),
+    imageFileName,
     path.basename(imageFilePath),
   );
 
@@ -104,7 +107,8 @@ export function pasteImageFile(sourceUri: any, imageFilePath: string) {
           editor.edit((textEditorEdit) => {
             textEditorEdit.insert(
               editor.selection.active,
-              `![${description}](${url})`,
+              // `![${description}](${url})`,
+              `<img width='' src='${url}'/>`,
             );
           });
         });
