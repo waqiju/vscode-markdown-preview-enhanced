@@ -801,6 +801,7 @@ export function getPreviewUri(uri: vscode.Uri) {
 
 export function isMarkdownFile(document: vscode.TextDocument) {
   return (
+    true ||  // 支持任意文件识别为markdown  
     document.languageId === "markdown" &&
     document.uri.scheme !== "markdown-preview-enhanced"
   ); // prevent processing of own documents
