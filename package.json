@@ -160,9 +160,15 @@
 		"keybindings": [
 			{
 				"command": "markdown-preview-enhanced.openPreviewToTheSide",
-				"key": "ctrl+k v",
-				"mac": "cmd+k v",
-				"when": "editorLangId == markdown"
+				"key": "ctrl+alt+m",
+				"mac": "cmd+alt+m",
+				"when": "editorLangId == markdown || editorLangId == plaintext"
+			},
+			{
+				"command": "markdown-preview-enhanced.openImageHelper",
+				"key": "ctrl+alt+i",
+				"mac": "ctrl+alt+i",
+				"when": "editorLangId == markdown || editorLangId == plaintext"
 			},
 			{
 				"command": "markdown-preview-enhanced.openPreview",
