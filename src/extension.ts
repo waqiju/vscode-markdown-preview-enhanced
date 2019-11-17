@@ -362,7 +362,7 @@ export function activate(context: vscode.ExtensionContext) {
     href = decodeURIComponent(href);
     href = href.replace(/^vscode\-resource:\/\/\//, "file:///");
     if (
-      [".pdf", ".xls", ".xlsx", ".doc", ".ppt", ".docx", ".pptx"].indexOf(
+      [".pdf", ".xls", ".xlsx", ".doc", ".ppt", ".docx", ".pptx", ".7z", ".zip"].indexOf(
         path.extname(href),
       ) >= 0
     ) {
