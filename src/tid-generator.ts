@@ -38,3 +38,18 @@ export function attachTid(filePath:string) {
         return fileName + tid
     }
 }
+
+export function formatInsertText(description:string, url:string) {
+    // const openNativeExtensions = ['.pdf', '.xls', '.xlsx', '.doc', '.ppt', '.docx', '.pptx', '.7z', '.zip']
+    const imageExtensions = ['.bmp','.jpg','.png','.tif','.gif','.pcx','.tga','.exif','.fpx','.svg','.psd','.cdr','.pcd','.dxf','.ufo','.eps','.ai','.raw','.WMF','.webp']
+    const ext = path.extname(url);
+    let text = "";
+    if (imageExtensions.indexOf(ext) >= 0) {
+        text =`<img width='' src='${url}'/>`
+    }
+    else {
+        text = `<a href='${url}'>${description}</a>`
+    }
+
+    return text
+}

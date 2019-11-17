@@ -4,7 +4,7 @@ import * as path from "path";
 import * as vscode from "vscode";
 
 import { isMarkdownFile } from "./preview-content-provider";
-import {attachTid} from "./tid-generator";
+import {attachTid, formatInsertText} from "./tid-generator";
 
 /**
  * Copy ans paste image at imageFilePath to config.imageForlderPath.
@@ -20,8 +20,8 @@ export function pasteImageFile(sourceUri: any, imageFilePath: string) {
   const imageFolderPath = vscode.workspace
     .getConfiguration("markdown-preview-enhanced")
     .get<string>("imageFolderPath");
-  // let imageFileName = path.basename(imageFilePath);
-  let imageFileName = attachTid(path.basename(imageFilePath))
+  let imageFileName = path.basename(imageFilePath);
+  let destFileName = attachTid(imageFileName)
   const projectDirectoryPath = vscode.workspace.rootPath;
   let assetDirectoryPath;
   let description;
@@ -38,9 +38,9 @@ export function pasteImageFile(sourceUri: any, imageFilePath: string) {
   }
 
   const destPath = path.resolve(
+    assetDirectoryPath,
     // path.basename(imageFilePath),
-    imageFileName,
-    path.basename(imageFilePath),
+    destFileName,
   );
 
   vscode.window.visibleTextEditors
@@ -99,16 +99,18 @@ export function pasteImageFile(sourceUri: any, imageFilePath: string) {
             `Image ${imageFileName} has been copied to folder ${assetDirectoryPath}`,
           );
 
-          let url = `${imageFolderPath}/${imageFileName}`;
+          let url = `${imageFolderPath}/${destFileName}`;
           if (url.indexOf(" ") >= 0) {
             url = url.replace(/ /g, "%20");
           }
 
+          // 这里插入文本，强制description为带后缀的文件名
+          description = imageFileName
           editor.edit((textEditorEdit) => {
             textEditorEdit.insert(
               editor.selection.active,
               // `![${description}](${url})`,
-              `<img width='' src='${url}'/>`,
+              formatInsertText(description, url),
             );
           });
         });
