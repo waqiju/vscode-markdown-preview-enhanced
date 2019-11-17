@@ -5,6 +5,19 @@
 适配自己的笔记习惯。
 
 
+## Development
+
+git clone 到插件目录
+
+在根目录，npm install
+
+如果还有问题，使用vscode打开工程，Debug运行一下。
+
+插件目录
+
+```
+[用户目录]/.vscode/extensions
+```
 
 
 ## 修改插件的name，阻止vscode的自动插件更新
@@ -54,3 +67,16 @@ ctrl + alt + m
 ctrl + alt + i
 
 ![](/doc/image/README_20191117_150900.png)
+
+
+## Extend Markdown Parser
+
+![](/doc/image/README_20191117_165402.png)
+
+markdown.replace()
+markdown是js原生的string
+replace是正则表达式替换
+
+js里面正则表达式的pattern string，可以用(/)来开头和结尾
+/g 意思是全局匹配
+/m 意思是多行匹配
