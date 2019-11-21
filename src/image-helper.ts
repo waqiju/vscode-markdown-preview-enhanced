@@ -5,6 +5,7 @@ import * as vscode from "vscode";
 
 import { isMarkdownFile } from "./preview-content-provider";
 import {attachTid, formatInsertText} from "./tid-generator";
+import {getProjectPath} from './project-path-helper';
 
 /**
  * Copy ans paste image at imageFilePath to config.imageForlderPath.
@@ -22,7 +23,9 @@ export function pasteImageFile(sourceUri: any, imageFilePath: string) {
     .get<string>("imageFolderPath");
   let imageFileName = path.basename(imageFilePath);
   let destFileName = attachTid(imageFileName)
-  const projectDirectoryPath = vscode.workspace.rootPath;
+  // 支持Mulit Root
+  // const projectDirectoryPath = vscode.workspace.rootPath;
+  const projectDirectoryPath = getProjectPath(null);
   let assetDirectoryPath;
   let description;
   if (imageFolderPath[0] === "/") {
